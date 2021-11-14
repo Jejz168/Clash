@@ -6,4 +6,4 @@
 
 # 访问量
 
-![](http://profile-counter.glitch.me/hushenan/Clash/count.svg)
+![](http://profile-counter.glitch.me/hushenan/count.svg)
