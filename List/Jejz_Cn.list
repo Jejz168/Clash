@@ -1,4 +1,4 @@
-# JeJz  自定义国内规则 制作 by Jejz  TG频道：https://t.me/Jejz_168
+# Jejz  自定义国内规则 制作 by Jejz  TG频道：https://t.me/Jejz_168
 # (联系可以帮加规则)
 # PROCESS-NAME,curl,DIRECT #匹配路由自身进程(curl直连)
 # DOMAIN-SUFFIX,google.com,Proxy #匹配域名后缀(交由Proxy代理服务器组)
