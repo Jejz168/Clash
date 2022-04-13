@@ -1,6 +1,7 @@
 # JeJz  自定义国内规则 制作 by Jejz  TG频道：https://t.me/JeJz_168
 #(联系可以帮加)
 
-DOMAIN-SUFFIX,nnnolanark.xyz
+DOMAIN-SUFFIX,nnnolanark.xyz,DIRECT
 
-
+DOMAIN-SUFFIX,github.com,Proxy
+DOMAIN-SUFFIX,github.com,🌟 JeJz国外
