@@ -12,7 +12,7 @@
 
 
 DOMAIN-SUFFIX,jsdelivr.net
-DOMAIN-SUFFIX,debian.org
+DOMAIN-KEYWORD,debian
 
 
 # 🔥自定义国外规则
