@@ -1,5 +1,7 @@
 # Clash自用转换规则
 
+https://t.me/Jejz_168
+
  <div align=center>
 <img src="https://raw.githubusercontent.com/Jejz168/Picture/main/mm.gif">
 </div>
