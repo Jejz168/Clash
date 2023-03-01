@@ -9,8 +9,8 @@
 # SRC-PORT,7777,DIRECT #匹配数据源端口(直连)
 
 
-DOMAIN-KEYWORD,lzkj-isv
-DOMAIN-KEYWORD,cjhy-isv
+DOMAIN-KEYWORD,lzkj
+DOMAIN-KEYWORD,cjhy
 
 
 
