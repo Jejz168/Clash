@@ -1,0 +1,5 @@
+DOMAIN-SUFFIX,openai.com
+# Add ai.com
+DOMAIN-SUFFIX,ai.com
+# Add stripe.com
+DOMAIN-SUFFIX,stripe.com
