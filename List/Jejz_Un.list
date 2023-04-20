@@ -15,5 +15,8 @@ DOMAIN-SUFFIX,jsdelivr.net
 DOMAIN-SUFFIX,sm.ms
 DOMAIN-KEYWORD,debian
 DOMAIN-KEYWORD,ubuntu
+DOMAIN-KEYWORD,kubedown
+
+
 
 # 🔥自定义国外规则
