@@ -10,7 +10,6 @@
 # DST-PORT,80,DIRECT #匹配数据目标端口(直连)
 # SRC-PORT,7777,DIRECT #匹配数据源端口(直连)
 
-DOMAIN-SUFFIX,nnnolanark.xyz
 DOMAIN-KEYWORD,kubedown
 
 
