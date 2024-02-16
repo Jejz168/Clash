@@ -11,7 +11,7 @@
 # SRC-PORT,7777,DIRECT #匹配数据源端口(直连)
 
 
-
+DOMAIN-KEYWORD,weixin
 
 
 # 🔥自定义国内规则
