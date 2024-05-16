@@ -12,8 +12,7 @@
 
 
 DOMAIN-KEYWORD,weixin
-SRC-IP-CIDR,125.124.0.0/16
-SRC-IP-CIDR,183.134.0.0/16
+
 
 
 # 🔥自定义国内规则
