@@ -13,7 +13,7 @@
 
 DOMAIN-SUFFIX,jsdelivr.net
 DOMAIN-SUFFIX,sm.ms
-DOMAIN-SUFFIX,docker.com
+DOMAIN-KEYWORD,docker
 DOMAIN-KEYWORD,debian
 DOMAIN-KEYWORD,ubuntu
 DOMAIN-KEYWORD,kubedown
