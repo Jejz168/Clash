@@ -11,7 +11,6 @@
 # SRC-PORT,7777,DIRECT #匹配数据源端口(直连)
 
 
-DOMAIN-SUFFIX,777117.xyz
 DOMAIN-SUFFIX,jsdelivr.net
 DOMAIN-SUFFIX,sm.ms
 DOMAIN-KEYWORD,docker
@@ -23,6 +22,7 @@ DOMAIN-KEYWORD,stripchatlive
 DOMAIN-KEYWORD,github
 DOMAIN-KEYWORD,npmjs
 DOMAIN-KEYWORD,python
+DOMAIN-SUFFIX,777117.xyz
 
 
 # 🔥自定义国外规则
