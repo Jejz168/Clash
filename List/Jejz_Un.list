@@ -11,6 +11,7 @@
 # SRC-PORT,7777,DIRECT #匹配数据源端口(直连)
 
 
+DOMAIN-SUFFIX,777117.xyz
 DOMAIN-SUFFIX,jsdelivr.net
 DOMAIN-SUFFIX,sm.ms
 DOMAIN-KEYWORD,docker
