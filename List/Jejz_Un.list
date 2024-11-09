@@ -12,10 +12,9 @@
 # DOMAIN-REGEX,^abc.*com,PROXY #正则匹配域名
 # RULE-SET,providername,PROXY #匹配规则集
 
-
-DOMAIN-SUFFIX,jsdelivr.net
-DOMAIN-KEYWORD,staticfile
 DOMAIN-SUFFIX,sm.ms
+DOMAIN-KEYWORD,jsdelivr
+DOMAIN-KEYWORD,staticfile
 DOMAIN-KEYWORD,docker
 DOMAIN-KEYWORD,debian
 DOMAIN-KEYWORD,ubuntu
