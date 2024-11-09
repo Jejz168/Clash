@@ -14,6 +14,7 @@
 
 
 DOMAIN-SUFFIX,jsdelivr.net
+DOMAIN-SUFFIX,staticfile.org
 DOMAIN-SUFFIX,sm.ms
 DOMAIN-KEYWORD,docker
 DOMAIN-KEYWORD,debian
