@@ -1,0 +1,19 @@
+https://github.com/MetaCubeX/mihomo/releases/tag/Prerelease-Alpha
+
+1.下载对应的核心。
+
+2.核心放到/usr/local/bin/里面，给权限0755
+
+3./etc/mihomo/放config.yaml配置文件
+
+
+4.使用 systemd 设置自动启动，把mihomo.service放到/etc/systemd/system/
+
+5.重新加载 systemd 并启用服务
+systemctl daemon-reexec
+systemctl daemon-reload
+systemctl enable mihomo.service
+systemctl start mihomo.service
+
+你可以用下面的命令检查状态：
+systemctl status mihomo.service

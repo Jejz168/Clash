@@ -1,0 +1,13 @@
+[Unit]
+Description=Mihomo Kernel by MetaCubeX
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/mihomo -d /etc/mihomo
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
