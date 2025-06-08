@@ -95,6 +95,9 @@ jobs:
 
           # 4. 转换为 .mrs
           for file in "$input_dir"/*.list; do
+            case "$file" in
+              *_domain.list|*_ip.list) continue ;;  # 跳过中间产物
+            esac
             echo "mrs and merging $file"
             base_name="$(basename "$file" .list)"
             list_domain="${input_dir}/${base_name}_domain.list"
@@ -112,7 +115,7 @@ jobs:
             fi
           done
 
-          rm -f "$input_dir"/*.list
+          find "$input_dir" -maxdepth 1 -type f -name '*.list' ! -name '*_domain.list' ! -name '*_ip.list' -delete
 
           echo "update_version=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
 
