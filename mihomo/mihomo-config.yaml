@@ -71,7 +71,7 @@ geo-update-interval: 48 # 更新间隔，单位：小时
 geox-url:
   geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
   geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb"
   asn: "https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
 
 # 控制面板
