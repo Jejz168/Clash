@@ -79,7 +79,7 @@ jobs:
             base_name="$(basename "$file" .list)"
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
             yaml_ip="${input_dir}/${base_name}_ip.yaml"
-            echo 'payload:' > "./mihomo-ruleset/${domain}.yaml"
+            echo 'payload:' > "$file"
 
             # 1. 提取并清洗域名类规则
             grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
@@ -101,14 +101,14 @@ jobs:
             base_name="$(basename "$file" .list)"
             mrs_domain="${input_dir}/${base_name}_domain.list"
             mrs_ip="${input_dir}/${base_name}_ip.list"
-            if [ -s "$domain_list" ]; then
-              $convert_tool convert-ruleset domain text "$domain_list" "$input_dir/${base_name}_domain.mrs"
+            if [ -s "$mrs_domain" ]; then
+              $convert_tool convert-ruleset domain text "$mrs_domain" "$input_dir/${base_name}_domain.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
 
-            if [ -s "$ip_list" ]; then
-              $convert_tool convert-ruleset ipcidr text "$ip_list" "$input_dir/${base_name}_ip.mrs"
+            if [ -s "$mrs_ip" ]; then
+              $convert_tool convert-ruleset ipcidr text "$mrs_ip" "$input_dir/${base_name}_ip.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
