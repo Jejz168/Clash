@@ -83,7 +83,7 @@ jobs:
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
             yaml_ip="${input_dir}/${base_name}_ip.yaml"
 
-            domain_rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file")
+            domain_rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" || true)
             if [[ -n "$domain_rules" ]]; then
               echo 'payload:' > "$yaml_domain"
               echo "$domain_rules" | sed -E \
@@ -92,7 +92,7 @@ jobs:
                 -e "s/$/'/" >> "$yaml_domain"
             fi
 
-            ip_rules=$(grep -E '^(IP-CIDR|IP-CIDR6),' "$file")
+            ip_rules=$(grep -E '^(IP-CIDR|IP-CIDR6),' "$file" || true)
             if [[ -n "$ip_rules" ]]; then
               echo 'payload:' > "$yaml_ip"
               echo "$ip_rules" | sed -E \
