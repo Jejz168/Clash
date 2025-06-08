@@ -79,7 +79,8 @@ jobs:
             base_name="$(basename "$file" .list)"
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
             yaml_ip="${input_dir}/${base_name}_ip.yaml"
-            echo 'payload:' > "$file"
+            echo 'payload:' > "$yaml_domain"
+            echo 'payload:' > "$yaml_ip"
 
             # 1. 提取并清洗域名类规则
             grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
