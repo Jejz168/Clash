@@ -81,20 +81,24 @@ jobs:
 
           # 3. 转换为 .mrs
           for file in "$input_dir"/*.list; do
+            base_name="$(basename "$file" .list)"
+            domain_list="${input_dir}/${base_name}_domain.list"
+            ip_list="${input_dir}/${base_name}_ip.list"
             if [ -s "$domain_list" ]; then
               $convert_tool convert-ruleset domain text "$input_dir/$base_name.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
-          done
 
-          for file in "$input_dir"/*.list; do
             if [ -s "$ip_list" ]; then
               $convert_tool convert-ruleset ipcidr text "$input_dir/$base_name.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
           done
+
+           # 清理所有 _domain.list 和 _ip.list 中间文件
+           rm -f "$input_dir"/*_domain.list "$input_dir"/*_ip.list
 
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> $GITHUB_ENV
 
