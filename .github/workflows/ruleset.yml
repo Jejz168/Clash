@@ -21,22 +21,36 @@ jobs:
 
       - name: Download and convert list files to .mrs
         run: |
-          mkdir -p ./lists ./mihomo-ruleset
+          mkdir -p ./mihomo-ruleset
 
           declare -A urls
-          urls["ChinaMedia"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list"
+          urls["ChinaMedia"]="https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list"
+          urls["GlobalMedia"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list"
+          urls["Telegram"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list"
+          urls["YouTube"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list"
+          urls["TikTok"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list"
+          urls["Netflix"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list"
+          urls["OpenAI"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list"
+          urls["Twitter"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.list"
+          urls["Game"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list"
+          urls["Apple"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list"
+          urls["SystemOTA"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.list"
+          urls["Jejz_Cn"]="https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Cn.list"
+          urls["Jejz_Un"]="https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Un.list"
+          urls["Microsoft"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list"
+          urls["PrivateTracker"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list"
+          urls["ChinaNoMedia"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list"
+          urls["Proxy"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list"
+          urls["ChinaIPs"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list"
 
           for name in "${!urls[@]}"; do
             echo "Downloading and converting $name"
-            curl -sSL "${urls[$name]}" | grep -v "^#" \
-              | sed 's/^DOMAIN-SUFFIX,/full:/g' \
-              | sed 's/^DOMAIN-KEYWORD,/keyword:/g' \
-              | sed 's/^DOMAIN,/full:/g' \
-              | sed 's/^IP-CIDR,/ipcidr:/g' \
-              | sed 's/^IP-CIDR6,/ipcidr6:/g' \
-              > "./lists/$name.list"
+            curl -sSL "${urls[$name]}" | grep -E 'DOMAIN,|DOMAIN-SUFFIX,|IP-CIDR' \
+              | sed -e 's/^DOMAIN,//' -e 's/^DOMAIN-SUFFIX,/+\./' \
+              | sed -e 's/^IP-CIDR,//' -e 's/^IP-CIDR6,//' \
+              > "./mihomo-ruleset/$name.list"
 
-            ./tools/mihomo convert-ruleset domain text "./lists/$name.list" "./mihomo-ruleset/$name.mrs"
+            ./tools/mihomo convert-ruleset domain text "./mihomo-ruleset/$name.mrs"
           done
 
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
