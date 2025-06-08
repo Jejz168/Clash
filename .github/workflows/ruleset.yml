@@ -50,7 +50,7 @@ jobs:
               | sed -e 's/^IP-CIDR,//' -e 's/^IP-CIDR6,//' \
               > "./mihomo-ruleset/$name.list"
 
-            ./tools/mihomo convert-ruleset domain text "./mihomo-ruleset/$name.mrs"
+            ./tools/mihomo convert-ruleset domain text "./mihomo-ruleset/$name.list" "./mihomo-ruleset/$name.mrs"
           done
 
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
