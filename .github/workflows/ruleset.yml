@@ -2,8 +2,8 @@ name: Build All MRS
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'  # 每天自动构建
+#  schedule:
+  #  - cron: '0 2 * * *'  # 每天自动构建
 
 jobs:
   build:
