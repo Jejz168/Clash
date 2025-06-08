@@ -43,9 +43,8 @@ jobs:
 
           for name in "${!urls[@]}"; do
             echo "Downloading and converting $name"
-            curl -sSL "${urls[$name]}" | grep -E 'DOMAIN,|DOMAIN-SUFFIX,|IP-CIDR' \
+            curl -sSL "${urls[$name]}" | grep -E 'DOMAIN,|DOMAIN-SUFFIX,' \
               | sed -e 's/^DOMAIN,//' -e 's/^DOMAIN-SUFFIX,/+\./' \
-              | sed -e 's/^IP-CIDR,//' -e 's/^IP-CIDR6,//' \
               > "./mihomo-ruleset/$name.list"
               
              if [ -s "./mihomo-ruleset/$name.list" ]; then
