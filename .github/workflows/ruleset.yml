@@ -12,39 +12,43 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install mihomo
+      - name: Download and install mihomo
         run: |
           mkdir -p ./tools/
           wget https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-amd64.tar.gz -O - | tar -zxf - -C ./tools/
           mv -f ./tools/CrashCore ./tools/mihomo
-          cd ./tools/
-          chmod +x ./mihomo
+          chmod +x ./tools/mihomo
 
-      - name: Download and convert list files
+      - name: Download and convert list files to .mrs
         run: |
-          mkdir -p cleaned mihomo-ruleset
+          mkdir -p ./lists ./mihomo-ruleset
+
           declare -A urls
           urls["ChinaMedia"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list"
 
           for name in "${!urls[@]}"; do
-            echo "Processing $name"
+            echo "Downloading and converting $name"
             curl -sSL "${urls[$name]}" | grep -v "^#" \
               | sed 's/^DOMAIN-SUFFIX,/full:/g' \
               | sed 's/^DOMAIN-KEYWORD,/keyword:/g' \
               | sed 's/^DOMAIN,/full:/g' \
-              > "cleaned/$name.list"
-            ./tools/mihomo geo-builder build -D mihomo-ruleset --input "cleaned/$name.list" --mihomo-ruleset-name "$name"
+              | sed 's/^IP-CIDR,/ipcidr:/g' \
+              | sed 's/^IP-CIDR6,/ipcidr6:/g' \
+              > "./lists/$name.list"
+
+            ./tools/mihomo convert-ruleset domain text "./lists/$name.list" "./mihomo-ruleset/$name.mrs"
           done
+
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
 
-      - name: Upload all mrs to release
+      - name: Upload .mrs to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: mihomo-ruleset
           tag_name: mihomo-ruleset
           files: ./mihomo-ruleset/*
           body: |
-            [mihomo](https://github.com/MetaCubeX/mihomo) rule-set 规则集文件
+            [mihomo](https://github.com/MetaCubeX/mihomo) rule-set 规则集文件  
             规则集文件更新于 ${{ env.update_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
