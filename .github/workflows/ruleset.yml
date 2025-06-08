@@ -54,38 +54,53 @@ jobs:
 
           # 2. 清洗所有 .list 文件
           for file in "$input_dir"/*.list; do
-            echo "Cleaning and merging $file"
+            echo "list and merging $file"
             base_name="$(basename "$file" .list)"
-            tmp_domain="${input_dir}/${base_name}_domain.list"
-            tmp_ip="${input_dir}/${base_name}_ip.list"
-            tmp_merged="${file}.merged.tmp"
+            list_domain="${input_dir}/${base_name}_domain.list"
+            list_ip="${input_dir}/${base_name}_ip.list"
 
             # 1. 提取并清洗域名类规则
-            grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD),' "$file" | sed -E \
-              -e 's/^DOMAIN,/full:/' \
+            grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
+              -e 's/^DOMAIN,//' \
               -e 's/^DOMAIN-SUFFIX,/+\./' \
-              -e 's/^DOMAIN-KEYWORD,/keyword:/' \
-              -e 's/,no-resolve$//' > "$tmp_domain"
+              -e 's/,no-resolve$//' > "$list_domain"
 
             # 2. 提取并清洗 IP 类规则
             grep -E '^(IP-CIDR|IP-CIDR6),' "$file" | sed -E \
               -e 's/^IP-CIDR,//' \
               -e 's/^IP-CIDR6,//' \
-              -e 's/,no-resolve$//' > "$tmp_ip"
-
-            # 3. 合并成最终结果（用原 list 文件名）
-            cat "$tmp_domain" "$tmp_ip" > "$tmp_merged"
-
-            # 4. 覆盖回原文件
-            mv "$tmp_merged" "$file"
+              -e 's/,no-resolve$//' > "$list_ip"
 
           done
 
-          # 3. 转换为 .mrs
+          # 3. 转换为 .yaml
           for file in "$input_dir"/*.list; do
+            echo "yaml and merging $file"
             base_name="$(basename "$file" .list)"
-            domain_list="${input_dir}/${base_name}_domain.list"
-            ip_list="${input_dir}/${base_name}_ip.list"
+            yaml_domain="${input_dir}/${base_name}_domain.yaml"
+            yaml_ip="${input_dir}/${base_name}_ip.yaml"
+            echo 'payload:' > "./mihomo-ruleset/${domain}.yaml"
+
+            # 1. 提取并清洗域名类规则
+            grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
+              sed -e "s/DOMAIN,/  - '/" \
+              -e "s/DOMAIN-SUFFIX,/  - '+\./" \
+              -e "s/$/'/" > "$yaml_domain"
+
+            # 2. 提取并清洗 IP 类规则
+            grep -E '^IP-CIDR,' "$file" | sed -E \
+              -e "s/IP-CIDR,/  - '/" \
+              -e "s/IP-CIDR6,/  - '/" \
+              -e "s/$/'/" > "$yaml_ip"
+
+          done
+
+          # 4. 转换为 .mrs
+          for file in "$input_dir"/*.list; do
+            echo "mrs and merging $file"
+            base_name="$(basename "$file" .list)"
+            mrs_domain="${input_dir}/${base_name}_domain.list"
+            mrs_ip="${input_dir}/${base_name}_ip.list"
             if [ -s "$domain_list" ]; then
               $convert_tool convert-ruleset domain text "$domain_list" "$input_dir/${base_name}_domain.mrs"
             else
@@ -99,8 +114,7 @@ jobs:
             fi
           done
 
-           # 清理所有 _domain.list 和 _ip.list 中间文件
-           rm -f "$input_dir"/*_domain.list "$input_dir"/*_ip.list
+          rm -f "$input_dir"/*.list
 
           echo "update_version=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
 
