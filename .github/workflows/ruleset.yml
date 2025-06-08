@@ -62,9 +62,9 @@ jobs:
 
             # 1. 提取并清洗域名类规则
             grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD),' "$file" | sed -E \
-              -e 's/^DOMAIN,//' \
+              -e 's/^DOMAIN,/full:/' \
               -e 's/^DOMAIN-SUFFIX,/+\./' \
-              -e 's/^DOMAIN-KEYWORD,//' \
+              -e 's/^DOMAIN-KEYWORD,/keyword:/' \
               -e 's/,no-resolve$//' > "$tmp_domain"
 
             # 2. 提取并清洗 IP 类规则
