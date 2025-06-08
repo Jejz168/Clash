@@ -1,9 +1,9 @@
 # 锚点区
-Proxy_first: &Proxy_first {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, 🎯 直连]}
+Proxy_first: &Proxy_first {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
 
-Nf_first: &Nf_first {type: select, proxies: [🚀 全局设置, 🎥 奈飞节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, 🎯 直连]}
+Nf_first: &Nf_first {type: select, proxies: [🚀 全局设置, 🎥 奈飞节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
 
-Direct_first: &Direct_first {type: select, proxies: [🎯 直连, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
+Direct_first: &Direct_first {type: select, proxies: [DIRECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
 
 Include_all: &Include_all {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
 
@@ -16,26 +16,26 @@ PProviders: &PProviders {type: http, interval: 86400, health-check: {enable: tru
 proxy-providers:
   Airport_01:
     <<: *PProviders
-    path: ./proxies/订阅链接.yaml
-    url: "订阅链接"
+    path: ./proxies/机场名称1.yaml
+    url: "订阅链接1"
     override:
-      additional-prefix: '订阅链接'
+      additional-prefix: '机场名称1'
       skip-cert-verify: true
       udp: true
   Airport_02:
     <<: *PProviders
-    path: ./proxies/订阅链接1.yaml
+    path: ./proxies/机场名称1.yaml
     url: "订阅链接1"
     override:
-      additional-prefix: '订阅链接1'
+      additional-prefix: '机场名称1'
       skip-cert-verify: true
       udp: true
   Airport_03:
     <<: *PProviders
-    path: ./proxies/订阅链接2.yaml
+    path: ./proxies/机场名称2.yaml
     url: "订阅链接2"
     override:
-      additional-prefix: '订阅链接2'
+      additional-prefix: '机场名称2'
       skip-cert-verify: true
       udp: true
 
@@ -45,63 +45,79 @@ proxy-providers:
 global-ua: clash.meta
 
 # 全局配置
-mixed-port: 7890
-ipv6: true
-allow-lan: true
+# port: 7890 # HTTP(S) 代理端口
+# socks-port: 7891 # SOCKS5 代理端口
+# redir-port: 7892 # redirect 透明代理端口，仅能代理 TCP 流量，仅适用于 Linux 以及 macOS 使用
+# tproxy-port: 1536 # tproxy 透明代理端口，可以代理 TCP 以及 UDP 流量，仅限 linux 适用 (Android 设备属于 Linux 设备）
+mixed-port: 7893 # HTTP(S) 和 SOCKS 代理混合端口
+ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
+allow-lan: true # 允许局域网连接
 unified-delay: true
 tcp-concurrent: true
 # interface-name: eth0  （路由器下根据情况指定出站接口）
 authentication:
 #  密码设置选项默认无
 - ""
+# 设置跳过验证的 IP 
 skip-auth-prefixes:
 - 127.0.0.1/8
 - ::1/128
 
-geodata-mode: false
-# GEO 文件加载模式（standard：标准加载器/memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)）
-geodata-loader: standard
-geo-auto-update: true
-geo-update-interval: 48
+# GEO文件配置
+geodata-mode: false # GeoIP 使用的文件,可选 true 为.dat/ false 为.mmdb
+geodata-loader: standard # GEO 文件加载模式：standard：标准加载器；memconservative：专为内存受限(小内存)设备优化的加载器(默认值)
+geo-auto-update: true # 是否自动更新 geodata
+geo-update-interval: 48 # 更新间隔，单位：小时
 geox-url:
-  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.metadb"
   geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
-  asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
+  asn: "https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
 
 # 控制面板
 external-controller: 0.0.0.0:9090
 secret: ""
 #  密码设置选项默认无
 external-ui: ui
+external-ui-name: zashboard
 external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 # 下载面板地址可更换：https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
 
+
+mode: rule # 运行模式：rule 规则匹配；global 全局代理(需要在GLOBAL策略组选择代理/策略)；direct 全局直连
 # 匹配进程 always/strict/off
+#  - always, 开启，强制匹配所有进程
+#  - strict, 默认，由 mihomo 判断是否开启
+#  - off, 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict
+# 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
+# 可选： "chrome","firefox","safari","ios","random","none" options.
 global-client-fingerprint: chrome
 keep-alive-idle: 600
 keep-alive-interval: 30
 
 # 策略组选择和fakeip缓存
 profile:
-  store-selected: true
-  store-fake-ip: false
+  store-selected: true # 储存 API 对策略组的选择，以供下次启动时使用
+  store-fake-ip: false # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
 
-# 流量嗅探
+# 域名嗅器,通过读取握手包内的域名字段,将IP还原成域名,有效解决Mapping机制的短板
 sniffer:
   enable: true
+  force-dns-mapping: true # 对 redir-host 类型识别的流量进行强制嗅探
+  parse-pure-ip: true # 对所有未获取到域名的流量进行强制嗅探
+  override-destination: true # 是否使用嗅探结果作为实际访问,默认为 true
   sniff:
     HTTP:
       ports: [80, 8080-8880]
-      override-destination: true
+      override-destination: true # 可覆盖 sniffer.override-destination
     TLS:
       ports: [443, 8443]
     QUIC:
       ports: [443, 8443]
-  force-domain:
+  force-domain: # 需要强制嗅探的域名（默认情况下只对IP进行嗅探）
     - "*.v2ex.com"
-  skip-domain:
+  skip-domain: # 需要跳过嗅探的域名。主要解决部分站点sni字段非域名，导致嗅探结果异常的问题，如米家设备
     - "Mijia Cloud"
     - "dlg.io.mi.com"
     - "*.push.apple.com"
@@ -117,48 +133,49 @@ sniffer:
 
 # 代理模式
 tun:
-  enable: true
-  stack: gvisor
-  mtu: 9000
-  dns-hijack:
+  enable: true # 是否启用,可选 true/false
+  stack: gvisor # tun 模式堆栈，如无使用问题，建议使用 mixed栈，默认 gvisor，可用值： system/gvisor/mixed
+  mtu: 9000 # 最大传输单元，会影响极限状态下的速率，一般用户默认即可。
+  dns-hijack: # dns 劫持，将匹配到的连接导入内部 dns 模块，不书写协议则为 udp://
     - "any:53"
     - "tcp://any:53"
-  auto-route: true
-  auto-redirect: true
-  auto-detect-interface: true
+  auto-route: true # 自动设置全局路由,可以自动将全局流量路由进入 tun 网卡
+  auto-redirect: true # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  auto-detect-interface: true # 自动选择流量出口接口,多出口网卡同时连接的设备建议手动指定出口网卡
 
 # DNS模块
 dns:
-  enable: true
-  listen: 0.0.0.0:1053
+  enable: true # 关闭将使用系统 DNS
+  listen: 0.0.0.0:1053 # 开启 DNS 服务器监听
   ipv6: true
+  ipv6-timeout: 300 #ipv6超时，单位 毫秒
+  cache-algorithm: arc #缓存算法
+  use-hosts: true #查询系统Hosts
   prefer-h3: false # 是否开启 DoH 支持 HTTP/3，将并发尝试
   respect-rules: true
   # 模式切换 redir-host / fake-ip
-  enhanced-mode: fake-ip
-  fake-ip-range: 28.0.0.1/8
+  enhanced-mode: fake-ip 
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
   # 模式切换 whitelist/blacklist 
   # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
   fake-ip-filter-mode: blacklist
-  fake-ip-filter:
+  fake-ip-filter: #fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
     - "rule-set:ChinaMedia_domain,Jejz_Cn_domain,ChinaNoMedia_domain,ChinaIPs_domain"
-  default-nameserver:
+  default-nameserver: #默认 DNS, 用于解析 DNS 服务器 的域名，必须为 IP, 可为加密 DNS
     - 223.5.5.5
     - 119.29.29.29
-  proxy-server-nameserver:
+    - https://1.12.12.12/dns-query
+    - https://[2400:3200::1]/dns-query
+  proxy-server-nameserver: # 专用于节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - quic://dns.alidns.com/dns-query
     - https://sm2.doh.pub/dns-query 
-  direct-nameserver:
+  direct-nameserver: # 专用于direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - quic://dns.alidns.com/dns-query
     - https://sm2.doh.pub/dns-query 
-  nameserver:
+  nameserver: #默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
     - https://dns.google/dns-query
     - https://cloudflare-dns.com/dns-query
-
-proxies: 
-  - {name: 🎯 直连, type: direct, udp: true}
-  - {name: 🚫 拒绝, type: reject}
-
+    - https://8.8.8.8/dns-query
 
 # 策略组
 proxy-groups:
@@ -169,57 +186,108 @@ proxy-groups:
   # fallback 故障转移，将按照 url 测试结果按照节点顺序选择
   # load-balance 负载均衡，将按照算法随机选择节点，# strategy: consistent-hashing # 可选 round-robin 和 sticky-sessions
   # select 手动选择，用户自行选择节点
-  - {name: 🚀 全局设置, type: select, proxies: [♻️ 自动选择, 🔯 故障切换, 🔮 负载均衡, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/qjsz.png"}
-  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x|🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/xh.png"}
-  - {name: 🔯 故障切换, type: fallback, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x|🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/fallback.png"}
-  - {name: 🔮 负载均衡, type: load-balance, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x|🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
-  - {name: ☝️ 手动切换, type: select, include-all: true, exclude-filter: "(?i)(🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
-  - {name: ☝️ 手动切换1, type: select, include-all: true, exclude-filter: "(?i)(🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
-  - {name: ☝️ 手动切换2, type: select, include-all: true, exclude-filter: "(?i)(🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
-  - {name: ☝️ 手动切换3, type: select, include-all: true, exclude-filter: "(?i)(🎯 直连|🚫 拒绝)", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
-  - {name: 🔑 专用线路, type: select, proxies: [专用线路均衡], include-all: true, filter: "(?i)(IPLC|IEPL|AGA|iplc|iepl|aga|专线)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/zyxl.png"}
-  - {name: 🎥 奈飞节点, type: select, proxies: [奈飞均衡], include-all: true, filter: "(?i)(NF|奈|奈飞|netflix|Netflix|NETFLIX|Media)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/nfjd.png"}
-  - {name: ⭐️ Jejz国内, type: select, proxies: [🎯 直连, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinawz.png"}
-  - {name: 🌟 Jejz国外, type: select, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/gwwz.png"}
+
+  - {name: 🚀 全局设置, type: select, proxies: [♻️ 自动选择, 🔯 故障切换, 🔮 负载均衡, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Admin.png"}
+
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Auto.png"}
+
+  - {name: 🔯 故障切换, type: fallback, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/fallback.png"}
+
+  - {name: 🔮 负载均衡, type: load-balance, include-all: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
+  - {name: ☝️ 手动切换, type: select, include-all: true, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
+
+  - {name: ☝️ 手动切换1, type: select, include-all: true, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
+
+  - {name: ☝️ 手动切换2, type: select, include-all: true, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
+
+  - {name: ☝️ 手动切换3, type: select, include-all: true, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Select.png"}
+
+  - {name: 🔑 专用线路, type: select, proxies: [专用线路均衡], include-all: true, filter: "(?i)(IPLC|IEPL|AGA|iplc|iepl|aga|专线)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Bypass.png"}
+
+  - {name: 🎥 奈飞节点, type: select, proxies: [奈飞均衡], include-all: true, filter: "(?i)(NF|奈|奈飞|netflix|Netflix|NETFLIX|Media)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Netflix.png"}
+
+  - {name: ⭐️ Jejz国内, type: select, proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/China_Map.png"}
+
+  - {name: 🌟 Jejz国外, type: select, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Area.png"}
+
   - {name: 🤖 AI, <<: *Include_all, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/ai.png"}
+
   - {name: 📲 Telegram, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/telegram.png"}
+
   - {name: 📽 YouTube, <<: *Nf_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/youtube.png"}
+
   - {name: 🎥 Netflix, <<: *Nf_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/netfix.png"}
+
   - {name: 🎵 TikTok, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/tiktok.png"}
+
   - {name: 📱 Twitter, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/twitter.png"}
-  - {name: Ⓜ️ 微软服务, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/microsoft.png"}
+
+  - {name: Ⓜ️ 微软服务, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Microsoft.png"}
+
   - {name: 🎮 游戏平台, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/game.png"}
-  - {name: 🍎 苹果服务, type: select, <<: *Direct_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/apple.png"}
-  - {name: 🍎 ios更新屏蔽, type: select, proxies: [🚫 拒绝, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/QuantumultX/main/Icon/Apple_Update.png"}
-  - {name: 🌏 国内媒体, type: select,  proxies: [🎯 直连, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinese_media.png"}
+
+  - {name: 🍎 苹果服务, type: select, <<: *Direct_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple.png"}
+
+  - {name: 🍎 ios更新屏蔽, type: select, proxies: [REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple_Update.png"}
+
+  - {name: 🌏 国内媒体, type: select,  proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinese_media.png"}
+
   - {name: 🌍 国外媒体, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/GMedia.png"}
-  - {name: 🇧🇹 PT下载, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/pt.png"}
-  - {name: 🇨🇳 国内网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinawz.png"}
-  - {name: 🇺🇳 国外网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/gwwz.png"}
+
+  - {name: 🇧🇹 PT下载, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Download.png"}
+
+  - {name: 🇨🇳 国内网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/China_Map.png"}
+
+  - {name: 🇺🇳 国外网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Area.png"}
+
   - {name: 🇭🇰 香港节点, type: select, proxies: [香港自动, 香港均衡], include-all: true, filter: "(?i)(港|hk|HK|hongkong|Hong Kong|HongKong)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Hongkong.png"}
+
   - {name: 🇯🇵 日本节点, type: select, proxies: [日本自动, 日本均衡], include-all: true, filter: "(?i)(🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Japan.png"}
+
   - {name: 🇺🇲 美国节点, type: select, proxies: [美国自动, 美国均衡], include-all: true, filter: "(?i)(🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/America.png"}
+
   - {name: 🇨🇳 台湾节点, type: select, proxies: [台湾自动, 台湾均衡], include-all: true, filter: "(?i)(🇨🇳|台|新北|彰化|TW|Taiwan)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Taiwan_China.png"}
+
   - {name: 🇸🇬 狮城节点, type: select, proxies: [狮城自动, 狮城均衡], include-all: true, filter: "(?i)(🇸🇬|新加坡|坡|狮城|SG|Singapore)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Singapore.png"}
+
   - {name: 🇰🇷 韩国节点, type: select, proxies: [韩国自动, 韩国均衡], include-all: true, filter: "(?i)(🇰🇷|KR|Korea|KOR|首尔|韩|韓)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Korea.png"}
-  - {name: 🌍 其他地区, type: select, proxies: [其他地区自动, 其他地区均衡], include-all: true, filter: "(?i)(俄|印|德|英|土|阿|拿|菲|澳|爱|荷|瑞|巴|越|泰|柬|法|意|以)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/qtgj.png"}
+
+  - {name: 🌍 其他地区, type: select, proxies: [其他地区自动, 其他地区均衡], include-all: true, filter: "(?i)(俄|印|德|英|土|阿|拿|菲|澳|爱|荷|瑞|巴|越|泰|柬|法|意|以)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Rainbow_1.png"}
+
   - {name: 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(港|hk|HK|hongkong|Hong Kong|HongKong))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(🇨🇳|台|新北|彰化|TW|Taiwan))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 狮城自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(🇸🇬|新加坡|坡|狮城|SG|Singapore))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(🇰🇷|KR|Korea|KOR|首尔|韩|韓))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 其他地区自动, type: url-test, include-all: true, tolerance: 20, interval: 300, hidden: true, filter: "(?i)(?=.*(俄|印|德|英|土|阿|拿|菲|澳|爱|荷|瑞|巴|越|泰|柬|法|意|以))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/automation2.png"}
+
   - {name: 香港均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(港|hk|HK|hongkong|Hong Kong|HongKong))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 日本均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 美国均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 台湾均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(🇨🇳|台|新北|彰化|TW|Taiwan))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 狮城均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(🇸🇬|新加坡|坡|狮城|SG|Singapore))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 韩国均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(🇰🇷|KR|Korea|KOR|首尔|韩|韓))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 其他地区均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(俄|印|德|英|土|阿|拿|菲|澳|爱|荷|瑞|巴|越|泰|柬|法|意|以))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 专用线路均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(IPLC|IEPL|AGA|iplc|iepl|aga|专线))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
+
   - {name: 奈飞均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(NF|奈|奈飞|netflix|Netflix|NETFLIX|Media))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [🎯 直连, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🚫 拒绝], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/lwzy.png"}
+
+  - {name: 🐟 漏网之鱼, type: select, proxies: [DIRECT, REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/final.png"}
   
 
 rules:
@@ -254,21 +322,21 @@ rule-anchor:
   class_yaml: &class_yaml {type: http, interval: 86400, behavior: classical, format: yaml}
 
 rule-providers: 
-  ChinaMedia_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list" }
-  GlobalMedia_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
-  Telegram_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" }
-  YouTube_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" }
-  TikTok_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" }
-  Netflix_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" }
-  OpenAI_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list" }
-  Twitter_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.list" }
-  Game_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list" }
-  Apple_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" }
-  SystemOTA_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.list" }
-  Jejz_Cn_domain: { <<: *class, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Cn.list" }
-  Jejz_Un_domain: { <<: *class, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Un.list" }
-  Microsoft_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" }
-  PrivateTracker_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list" }
-  ChinaNoMedia_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list" }
-  Proxy_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list" }
-  ChinaIPs_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list" }
+  ChinaMedia_domain: { <<: *class, path: ./rules/ChinaMedia.list, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list" }
+  GlobalMedia_domain: { <<: *class, path: ./rules/GlobalMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
+  Telegram_domain: { <<: *class, path: ./rules/Telegram.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" }
+  YouTube_domain: { <<: *class, path: ./rules/YouTube.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" }
+  TikTok_domain: { <<: *class, path: ./rules/TikTok.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" }
+  Netflix_domain: { <<: *class, path: ./rules/Netflix.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" }
+  OpenAI_domain: { <<: *class, path: ./rules/OpenAI.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list" }
+  Twitter_domain: { <<: *class, path: ./rules/Twitter.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.list" }
+  Game_domain: { <<: *class, path: ./rules/Game, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list" }
+  Apple_domain: { <<: *class, path: ./rules/Apple.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" }
+  SystemOTA_domain: { <<: *class, path: ./rules/SystemOTA.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.list" }
+  Jejz_Cn_domain: { <<: *class, path: ./rules/Jejz_Cn.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Cn.list" }
+  Jejz_Un_domain: { <<: *class, path: ./rules/Jejz_Un.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Un.list" }
+  Microsoft_domain: { <<: *class, path: ./rules/Microsoft.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" }
+  PrivateTracker_domain: { <<: *class, path: ./rules/PrivateTracker.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list" }
+  ChinaNoMedia_domain: { <<: *class, path: ./rules/ChinaNoMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list" }
+  Proxy_domain: { <<: *class, path: ./rules/Proxy.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list" }
+  ChinaIPs_domain: { <<: *class, path: ./rules/ChinaIPs.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list" }
