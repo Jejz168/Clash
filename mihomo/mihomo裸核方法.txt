@@ -9,10 +9,16 @@ https://github.com/MetaCubeX/mihomo/releases/tag/Prerelease-Alpha
 4.使用 systemd 设置自动启动，下载mihomo.service，放到/etc/systemd/system/里面
 
 5.重新加载 systemd 并启用服务
+#重启 systemd 自身
 systemctl daemon-reexec
+#重新加载 systemd 配置文件
 systemctl daemon-reload
+#设置 mihomo.service 开机自启。
 systemctl enable mihomo.service
+#启动 mihomo.service 服务。
 systemctl start mihomo.service
+## 重启服务以应用变更
+systemctl restart mihomo.service
 
 你可以用下面的命令检查状态：
 systemctl status mihomo.service
