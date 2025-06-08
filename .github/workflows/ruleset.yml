@@ -41,16 +41,41 @@ jobs:
           urls["Proxy"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list"
           urls["ChinaIPs"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list"
 
+          input_dir="./mihomo-ruleset"
+          convert_tool="./tools/mihomo"
+
+          # 1. 下载所有 .list 文件
           for name in "${!urls[@]}"; do
             echo "Downloading and converting $name"
-            curl -sSL "${urls[$name]}" | grep -E 'DOMAIN,|DOMAIN-SUFFIX,' \
-              | sed -e 's/^DOMAIN,//' -e 's/^DOMAIN-SUFFIX,/+\./' \
-              > "./mihomo-ruleset/$name.list"
-              
-             if [ -s "./mihomo-ruleset/$name.list" ]; then
-               ./tools/mihomo convert-ruleset domain text "./mihomo-ruleset/$name.list" "./mihomo-ruleset/$name.mrs"
+            curl -sSL "${urls[$name]}" -o "$input_dir/$name.list"
+          done
+
+          # 2. 清洗所有 .list 文件
+          for file in "$input_dir"/*.list; do
+            echo "Cleaning $file"
+
+            # 临时文件
+            tmpfile="${file}.tmp"
+
+             grep -E '^(DOMAIN|DOMAIN-SUFFIX|IP-CIDR|IP-CIDR6),' "$file" \
+               | sed -E \
+                   -e 's/^DOMAIN,//' \
+                   -e 's/^DOMAIN-SUFFIX,/+\./' \
+                   -e 's/^IP-CIDR,//' \
+                   -e 's/^IP-CIDR6,//' \
+                   -e 's/,no-resolve$//' \
+               > "$tmpfile"
+
+               mv "$tmpfile" "$file"
+          done
+
+          # 3. 转换为 .mrs
+          for file in "$input_dir"/*.list; do
+            if [ -s "$file" ]; then
+              base_name=$(basename "$file" .list)
+              $convert_tool convert-ruleset domain text "$file" "$input_dir/$base_name.mrs"
             else
-               echo "Warning: $name.list is empty, skip convert"
+              echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
           done
 
