@@ -231,13 +231,13 @@ proxy-groups:
 
   - {name: 🍎 ios更新屏蔽, type: select, proxies: [REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple_Update.png"}
 
-  - {name: 🌏 国内媒体, type: select,  proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinese_media.png"}
+  - {name: 🌏 国内媒体, type: select, proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinese_media.png"}
 
   - {name: 🌍 国外媒体, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/GMedia.png"}
 
-  - {name: 🇧🇹 PT下载, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Download.png"}
+  - {name: 🇧🇹 PT下载, <<: *Direct_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Download.png"}
 
-  - {name: 🇨🇳 国内网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/China_Map.png"}
+  - {name: 🇨🇳 国内网站, type: select, proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/China_Map.png"}
 
   - {name: 🇺🇳 国外网站, <<: *Proxy_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Area.png"}
 
