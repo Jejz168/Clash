@@ -52,21 +52,33 @@ jobs:
 
           # 2. 清洗所有 .list 文件
           for file in "$input_dir"/*.list; do
-            echo "Cleaning $file"
+            echo "Cleaning and merging $file"
 
-            # 临时文件
-            tmpfile="${file}.tmp"
+            tmp_domain="${file}.domain.tmp"
+            tmp_ip="${file}.ip.tmp"
+            tmp_merged="${file}.merged.tmp"
 
-             grep -E '^(DOMAIN|DOMAIN-SUFFIX|IP-CIDR|IP-CIDR6),' "$file" \
-               | sed -E \
-                   -e 's/^DOMAIN,//' \
-                   -e 's/^DOMAIN-SUFFIX,/+\./' \
-                   -e 's/^IP-CIDR,//' \
-                   -e 's/^IP-CIDR6,//' \
-                   -e 's/,no-resolve$//' \
-               > "$tmpfile"
+            # 1. 提取并清洗域名类规则
+            grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD),' "$file" | sed -E \
+              -e 's/^DOMAIN,//' \
+              -e 's/^DOMAIN-SUFFIX,/+\./' \
+              -e 's/^DOMAIN-KEYWORD,//' \
+              -e 's/,no-resolve$//' > "$tmp_domain"
 
-               mv "$tmpfile" "$file"
+            # 2. 提取并清洗 IP 类规则
+            grep -E '^(IP-CIDR|IP-CIDR6),' "$file" | sed -E \
+              -e 's/^IP-CIDR,//' \
+              -e 's/^IP-CIDR6,//' \
+              -e 's/,no-resolve$//' > "$tmp_ip"
+
+            # 3. 合并成最终结果（用原 list 文件名）
+            cat "$tmp_domain" "$tmp_ip" > "$tmp_merged"
+
+            # 4. 覆盖回原文件
+            mv "$tmp_merged" "$file"
+
+            # 5. 清理中间文件
+            rm -f "$tmp_domain" "$tmp_ip"
           done
 
           # 3. 转换为 .mrs
