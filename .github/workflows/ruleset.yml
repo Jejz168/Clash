@@ -14,9 +14,9 @@ jobs:
 
       - name: Install mihomo
         run: |
-          curl -LO https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-amd64.tar.gz
-          tar -xzf mihomo-meta-linux-amd64.tar.gz
-          mv mihomo-meta-*/mihomo ./mihomo
+          wget https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-amd64.tar.gz -O - | tar -zxf - -C ./tools/
+          mv -f ./tools/CrashCore ./tools/mihomo
+          cd ./tools/
           chmod +x ./mihomo
 
       - name: Download and convert list files
