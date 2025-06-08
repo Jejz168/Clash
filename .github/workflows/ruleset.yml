@@ -102,7 +102,7 @@ jobs:
            # 清理所有 _domain.list 和 _ip.list 中间文件
            rm -f "$input_dir"/*_domain.list "$input_dir"/*_ip.list
 
-          echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> $GITHUB_ENV
+          echo "update_version=$(date -d '+8 hours' +%Y-%m-%d %H:%M:%S)" >> $GITHUB_ENV
 
       - name: Upload .mrs to GitHub Release
         uses: softprops/action-gh-release@v2
