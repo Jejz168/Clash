@@ -79,16 +79,14 @@ jobs:
             base_name="$(basename "$file" .list)"
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
             yaml_ip="${input_dir}/${base_name}_ip.yaml"
-            echo 'payload:' > "$yaml_domain"
-            echo 'payload:' > "$yaml_ip"
 
-            # 1. 提取并清洗域名类规则
+            echo 'payload:' > "$yaml_domain"
             grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
               -e "s/DOMAIN,/  - '/" \
               -e "s/DOMAIN-SUFFIX,/  - '+\./" \
               -e "s/$/'/" > "$yaml_domain"
 
-            # 2. 提取并清洗 IP 类规则
+            echo 'payload:' > "$yaml_ip"
             grep -E '^IP-CIDR,' "$file" | sed -E \
               -e "s/IP-CIDR,/  - '/" \
               -e "s/IP-CIDR6,/  - '/" \
@@ -100,16 +98,16 @@ jobs:
           for file in "$input_dir"/*.list; do
             echo "mrs and merging $file"
             base_name="$(basename "$file" .list)"
-            mrs_domain="${input_dir}/${base_name}_domain.list"
-            mrs_ip="${input_dir}/${base_name}_ip.list"
-            if [ -s "$mrs_domain" ]; then
-              $convert_tool convert-ruleset domain text "$mrs_domain" "$input_dir/${base_name}_domain.mrs"
+            list_domain="${input_dir}/${base_name}_domain.list"
+            list_ip="${input_dir}/${base_name}_ip.list"
+            if [ -s "$list_domain" ]; then
+              $convert_tool convert-ruleset domain text "$list_domain" "$input_dir/${base_name}_domain.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
 
-            if [ -s "$mrs_ip" ]; then
-              $convert_tool convert-ruleset ipcidr text "$mrs_ip" "$input_dir/${base_name}_ip.mrs"
+            if [ -s "$list_ip" ]; then
+              $convert_tool convert-ruleset ipcidr text "$list_ip" "$input_dir/${base_name}_ip.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
