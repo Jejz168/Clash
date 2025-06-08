@@ -14,6 +14,7 @@ jobs:
 
       - name: Install mihomo
         run: |
+          mkdir -p ./tools/
           wget https://github.com/DustinWin/proxy-tools/releases/download/mihomo/mihomo-meta-linux-amd64.tar.gz -O - | tar -zxf - -C ./tools/
           mv -f ./tools/CrashCore ./tools/mihomo
           cd ./tools/
