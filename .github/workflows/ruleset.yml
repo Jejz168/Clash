@@ -75,6 +75,9 @@ jobs:
 
           # 3. 转换为 .yaml
           for file in "$input_dir"/*.list; do
+            case "$file" in
+             *_domain.list|*_ip.list) continue ;;  # 跳过中间产物
+            esac
             echo "yaml and merging $file"
             base_name="$(basename "$file" .list)"
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
