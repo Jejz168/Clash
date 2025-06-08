@@ -83,7 +83,7 @@ jobs:
 
             # 1. 提取并清洗域名类规则
             grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
-              sed -e "s/DOMAIN,/  - '/" \
+              -e "s/DOMAIN,/  - '/" \
               -e "s/DOMAIN-SUFFIX,/  - '+\./" \
               -e "s/$/'/" > "$yaml_domain"
 
