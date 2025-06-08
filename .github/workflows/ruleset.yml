@@ -35,7 +35,7 @@ jobs:
               | sed 's/^IP-CIDR,/ipcidr:/g' \
               | sed 's/^IP-CIDR6,/ipcidr6:/g' \
               > "cleaned/$name.list"
-            ./mihomo geo-builder build -D mihomo-ruleset --input "cleaned/$name.list" --mihomo-ruleset-name "$name"
+            ./tools/mihomo geo-builder build -D mihomo-ruleset --input "cleaned/$name.list" --mihomo-ruleset-name "$name"
           done
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
 
