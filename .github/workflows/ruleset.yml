@@ -84,14 +84,13 @@ jobs:
             grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
               -e "s/DOMAIN,/  - '/" \
               -e "s/DOMAIN-SUFFIX,/  - '+\./" \
-              -e "s/$/'/" > "$yaml_domain"
+              -e "s/$/'/" >> "$yaml_domain"
 
             echo 'payload:' > "$yaml_ip"
-            grep -E '^IP-CIDR,' "$file" | sed -E \
+            grep -E '^(IP-CIDR|IP-CIDR6),' "$file" | sed -E \
               -e "s/IP-CIDR,/  - '/" \
               -e "s/IP-CIDR6,/  - '/" \
-              -e "s/$/'/" > "$yaml_ip"
-
+              -e "s/$/'/" >> "$yaml_ip"
           done
 
           # 4. 转换为 .mrs
@@ -103,13 +102,13 @@ jobs:
             if [ -s "$list_domain" ]; then
               $convert_tool convert-ruleset domain text "$list_domain" "$input_dir/${base_name}_domain.mrs"
             else
-              echo "Warning: $file is empty after cleaning, skipping .mrs"
+              echo "Warning: $list_domain is empty after cleaning, skipping .mrs"
             fi
 
             if [ -s "$list_ip" ]; then
               $convert_tool convert-ruleset ipcidr text "$list_ip" "$input_dir/${base_name}_ip.mrs"
             else
-              echo "Warning: $file is empty after cleaning, skipping .mrs"
+              echo "Warning: $list_ip is empty after cleaning, skipping .mrs"
             fi
           done
 
