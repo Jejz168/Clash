@@ -53,9 +53,9 @@ jobs:
           # 2. 清洗所有 .list 文件
           for file in "$input_dir"/*.list; do
             echo "Cleaning and merging $file"
-
-            tmp_domain="${file}.domain.tmp"
-            tmp_ip="${file}.ip.tmp"
+            base_name="$(basename "$file" .list)"
+            tmp_domain="${input_dir}/${base_name}_domain.list"
+            tmp_ip="${input_dir}/${base_name}_ip.list"
             tmp_merged="${file}.merged.tmp"
 
             # 1. 提取并清洗域名类规则
@@ -77,15 +77,20 @@ jobs:
             # 4. 覆盖回原文件
             mv "$tmp_merged" "$file"
 
-            # 5. 清理中间文件
-            rm -f "$tmp_domain" "$tmp_ip"
           done
 
           # 3. 转换为 .mrs
           for file in "$input_dir"/*.list; do
-            if [ -s "$file" ]; then
-              base_name=$(basename "$file" .list)
-              $convert_tool convert-ruleset domain text "$file" "$input_dir/$base_name.mrs"
+            if [ -s "$domain_list" ]; then
+              $convert_tool convert-ruleset domain text "$input_dir/$base_name.mrs"
+            else
+              echo "Warning: $file is empty after cleaning, skipping .mrs"
+            fi
+          done
+
+          for file in "$input_dir"/*.list; do
+            if [ -s "$ip_list" ]; then
+              $convert_tool convert-ruleset ipcidr text "$input_dir/$base_name.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
