@@ -85,13 +85,13 @@ jobs:
             domain_list="${input_dir}/${base_name}_domain.list"
             ip_list="${input_dir}/${base_name}_ip.list"
             if [ -s "$domain_list" ]; then
-              $convert_tool convert-ruleset domain text "$input_dir/$base_name.mrs"
+              $convert_tool convert-ruleset domain text "$domain_list" "$input_dir/$base_name.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
 
             if [ -s "$ip_list" ]; then
-              $convert_tool convert-ruleset ipcidr text "$input_dir/$base_name.mrs"
+              $convert_tool convert-ruleset ipcidr text "$ip_list" "$input_dir/$base_name.mrs"
             else
               echo "Warning: $file is empty after cleaning, skipping .mrs"
             fi
