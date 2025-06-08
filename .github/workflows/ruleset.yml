@@ -55,7 +55,7 @@ jobs:
             fi
           done
 
-          echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
+          echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> $GITHUB_ENV
 
       - name: Upload .mrs to GitHub Release
         uses: softprops/action-gh-release@v2
