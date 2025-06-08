@@ -83,18 +83,24 @@ jobs:
             yaml_domain="${input_dir}/${base_name}_domain.yaml"
             yaml_ip="${input_dir}/${base_name}_ip.yaml"
 
-            echo 'payload:' > "$yaml_domain"
-            grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file" | sed -E \
-              -e "s/DOMAIN,/  - '/" \
-              -e "s/DOMAIN-SUFFIX,/  - '+\./" \
-              -e "s/$/'/" >> "$yaml_domain"
+            domain_rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX),' "$file")
+            if [[ -n "$domain_rules" ]]; then
+              echo 'payload:' > "$yaml_domain"
+               echo "$domain_rules" | sed -E \
+                 -e "s/DOMAIN,/  - '/" \
+                 -e "s/DOMAIN-SUFFIX,/  - '+\./" \
+                 -e "s/$/'/" >> "$yaml_domain"
+            fi
 
-            echo 'payload:' > "$yaml_ip"
-            grep -E '^(IP-CIDR|IP-CIDR6),' "$file" | sed -E \
-              -e "s/IP-CIDR,/  - '/" \
-              -e "s/IP-CIDR6,/  - '/" \
-              -e "s/$/'/" >> "$yaml_ip"
-          done
+            ip_rules=$(grep -E '^(IP-CIDR|IP-CIDR6),' "$file")
+            if [[ -n "$ip_rules" ]]; then
+              echo 'payload:' > "$yaml_ip"
+              echo "$ip_rules" | sed -E \
+                -e "s/IP-CIDR,/  - '/" \
+                -e "s/IP-CIDR6,/  - '/" \
+                -e "s/$/'/" >> "$yaml_ip"
+             fi
+           done
 
           # 4. 转换为 .mrs
           for file in "$input_dir"/*.list; do
