@@ -87,6 +87,7 @@ jobs:
             if [[ -n "$domain_rules" ]]; then
               echo 'payload:' > "$yaml_domain"
               echo "$domain_rules" | sed -E \
+                -e "s/,no-resolve$//" \
                 -e "s/DOMAIN,/  - '/" \
                 -e "s/DOMAIN-SUFFIX,/  - '+\./" \
                 -e "s/$/'/" >> "$yaml_domain"
@@ -96,6 +97,7 @@ jobs:
             if [[ -n "$ip_rules" ]]; then
               echo 'payload:' > "$yaml_ip"
               echo "$ip_rules" | sed -E \
+                -e "s/,no-resolve$//" \
                 -e "s/IP-CIDR,/  - '/" \
                 -e "s/IP-CIDR6,/  - '/" \
                 -e "s/$/'/" >> "$yaml_ip"
