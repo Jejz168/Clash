@@ -130,6 +130,18 @@ jobs:
 
           echo "update_version=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
 
+      - name: Push to "download" branch
+        run: |
+          cd upload
+          git init
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout -b download
+          git add .
+          git commit -m "${{ env.TAG_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.API_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin download
+
       - name: Upload .mrs to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
