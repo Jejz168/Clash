@@ -151,7 +151,7 @@ jobs:
           body: |
             [mihomo](https://github.com/MetaCubeX/mihomo) rule-set 规则集文件  
             规则集文件更新于 ${{ env.update_version }}
-            规则用于订阅behavior为domain或ipcidr
+            本规则集适用于订阅行为类型为 `domain` 或 `ipcidr`，详见下表：
 
             | behavior 类型 | 文件内容格式限制           |
             |---------------|----------------------------|
