@@ -61,6 +61,7 @@ fi
 
 info "请修改配置文件：$CONFIG_DIR/config.yaml"
 warn "当前配置文件可能尚未包含订阅地址，若不配置，Mihomo 启动将失败！"
+warn "⚠️ 建议使用图形化文本编辑器（如 VS Code）手动编辑 config.yaml，避免格式错误。"
 read -p "是否现在在线编辑 config.yaml？(y=在线编辑 / n=稍后手动编辑): " edit_choice
 if [[ "$edit_choice" =~ ^[Yy]$ ]]; then
   # 自动检测可用的编辑器
