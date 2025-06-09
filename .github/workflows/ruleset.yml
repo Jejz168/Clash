@@ -138,7 +138,7 @@ jobs:
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git checkout -b download
           git add .
-          git commit -m "${{ env.TAG_NAME }}"
+          git commit -m "${{ env.update_version }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.API_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin download
 
