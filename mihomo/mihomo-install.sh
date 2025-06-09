@@ -200,6 +200,5 @@ EOF
 else
   warn "未启动服务，请先编辑配置文件后再手动启动 mihomo 服务。"
   echo "配置文件路径：$CONFIG_DIR/config.yaml"
-  echo "启动命令示例（适用于 systemd 系统）：sudo systemctl start mihomo"
   exit 0
 fi
