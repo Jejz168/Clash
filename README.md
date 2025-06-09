@@ -1,5 +1,5 @@
 # Mihomo
-- [mihomo规则](https://github.com/Jejz168/Clash/tree/download)
+- [mihomo规则集文件](https://github.com/Jejz168/Clash/tree/download)
 
 # Clash自用转换规则
 
