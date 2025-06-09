@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
+#===============================================
+# Description: Mihomo裸核安装使用
+# File name: mihomo-install.sh
+# Lisence: MIT
+# By: Jejz
+#===============================================
 
-set -e
+set -e -o pipefail
 
 # 日志输出函数
 info()  { echo -e "\033[1;34m[INFO]\033[0m $*"; }
 warn()  { echo -e "\033[1;33m[WARN]\033[0m $*"; }
 error() { echo -e "\033[1;31m[ERROR]\033[0m $*"; }
+
+# 判断 sudo
+if [ "$(id -u)" -ne 0 ]; then
+  SUDO='sudo'
+else
+  SUDO=''
+fi
 
 # 读取 ID 字段
 if [ -f /etc/os-release ]; then
@@ -51,13 +64,6 @@ case "$OS_ID" in
     exit 1
     ;;
 esac
-
-# 判断 sudo
-if [ "$(id -u)" -ne 0 ]; then
-  SUDO='sudo'
-else
-  SUDO=''
-fi
 
 # 自动识别平台架构
 ARCH=$(uname -m)
