@@ -132,7 +132,7 @@ jobs:
 
       - name: Push to "download" branch
         run: |
-          cd upload
+          cd mihomo-ruleset
           git init
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
