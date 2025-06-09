@@ -1,3 +1,6 @@
+# Mihomo
+- [mihomo规则](https://github.com/Jejz168/Clash/tree/download)
+
 # Clash自用转换规则
 
  <div align=center>
