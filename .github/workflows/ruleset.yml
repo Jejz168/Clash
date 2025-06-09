@@ -2,12 +2,13 @@ name: Build All MRS
 
 on:
   workflow_dispatch:
-#  schedule:
-  #  - cron: '0 2 * * *'  # 每天自动构建
+  schedule:
+    - cron: '0 22 * * *'  # 每天自动构建
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
