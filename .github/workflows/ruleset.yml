@@ -139,6 +139,14 @@ jobs:
           body: |
             [mihomo](https://github.com/MetaCubeX/mihomo) rule-set 规则集文件  
             规则集文件更新于 ${{ env.update_version }}
+            规则用于订阅behavior为domain或ipcidr
+
+            | behavior 类型 | 文件内容格式限制           |
+            |---------------|----------------------------|
+            | `domain`      | 只允许裸域名 / 子域名      |
+            | `ipcidr`      | 只允许 IP / 子网格式        |
+            | `classical`   | 支持 Clash 格式（含类型前缀） |
+
         env:
           GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
 
