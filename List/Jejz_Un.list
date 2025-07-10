@@ -13,6 +13,7 @@
 # RULE-SET,providername,PROXY #匹配规则集
 
 DOMAIN-SUFFIX,sm.ms
+DOMAIN-SUFFIX,eu.org
 DOMAIN-KEYWORD,jsdelivr
 DOMAIN-KEYWORD,staticfile
 DOMAIN-KEYWORD,docker
