@@ -1,11 +1,11 @@
 # 锚点区
-Proxy_first: &Proxy_first {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
+Proxy_first: &Proxy_first {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
 
-Nf_first: &Nf_first {type: select, proxies: [🚀 全局设置, 🎥 奈飞节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
+Nf_first: &Nf_first {type: select, proxies: [🚀 全局设置, 🎥 奈飞节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3, DIRECT]}
 
-Direct_first: &Direct_first {type: select, proxies: [DIRECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
+Direct_first: &Direct_first {type: select, proxies: [DIRECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
 
-Include_all: &Include_all {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
+Include_all: &Include_all {type: select, proxies: [🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区, 🔑 专用线路, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3]}
 
 PProviders: &PProviders {type: http, interval: 86400, health-check: {enable: true, url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 5, lazy: true}, filter: '^(?!.*(music|𝐌𝐮𝐬𝐢𝐜|Unbolck|M0NATA|M0NATAS|NetEase|网易云|云音乐|音乐|数值|🎵|🎧|🎶|(?i)Music|回国|公众号|封禁|赞助商|账号|试用|电报|最新|域名|剩余|手游|游戏|(?i)Netease|拒绝|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic))'}
 
@@ -187,7 +187,7 @@ proxy-groups:
   # load-balance 负载均衡，将按照算法随机选择节点，# strategy: consistent-hashing # 可选 round-robin 和 sticky-sessions
   # select 手动选择，用户自行选择节点
 
-  - {name: 🚀 全局设置, type: select, proxies: [♻️ 自动选择, 🔯 故障切换, 🔮 负载均衡, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Admin.png"}
+  - {name: 🚀 全局设置, type: select, proxies: [♻️ 自动选择, 🔯 故障切换, 🔮 负载均衡, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区, ☝️ 手动切换, ☝️ 手动切换1, ☝️ 手动切换2, ☝️ 手动切换3], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Admin.png"}
 
   - {name: ♻️ 自动选择, type: url-test, include-all: true, url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 5, lazy: true, exclude-filter: "(?i)(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Auto.png"}
 
@@ -229,7 +229,7 @@ proxy-groups:
 
   - {name: 🍎 苹果服务, type: select, <<: *Direct_first, icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple.png"}
 
-  - {name: 🍎 ios更新屏蔽, type: select, proxies: [REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple_Update.png"}
+  - {name: 🍎 ios更新屏蔽, type: select, proxies: [REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Apple_Update.png"}
 
   - {name: 🌏 国内媒体, type: select, proxies: [DIRECT, 🚀 全局设置], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/Chinese_media.png"}
 
@@ -301,7 +301,7 @@ proxy-groups:
 
   - {name: 奈飞均衡, type: load-balance, include-all: true, strategy: consistent-hashing, hidden: true, filter: "(?i)(?=.*(NF|奈|奈飞|netflix|Netflix|NETFLIX|Media))^((?!(3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x|6.0|6倍|6x|7.0|7倍|7x|8.0|8倍|8x|10.0|10倍|10x|15.0|15倍|15x|20.0|20倍|20x)).)*$", icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/load-balance.png"}
 
-  - {name: 🐟 漏网之鱼, type: select, proxies: [DIRECT, REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其他地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/final.png"}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [DIRECT, REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/final.png"}
   
 
 rules:
