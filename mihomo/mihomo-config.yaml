@@ -164,18 +164,17 @@ dns:
   default-nameserver: #默认 DNS, 用于解析 DNS 服务器 的域名，必须为 IP, 可为加密 DNS
     - 223.5.5.5
     - 119.29.29.29
-    - https://1.12.12.12/dns-query
-    - https://[2400:3200::1]/dns-query
   proxy-server-nameserver: # 专用于节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-    - quic://dns.alidns.com/dns-query
-    - https://sm2.doh.pub/dns-query 
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
   direct-nameserver: # 专用于direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-    - quic://dns.alidns.com/dns-query
-    - https://sm2.doh.pub/dns-query 
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
   nameserver: #默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
-    - https://dns.google/dns-query
-    - https://cloudflare-dns.com/dns-query
-    - https://8.8.8.8/dns-query
+    - 223.5.5.5
+    - 119.29.29.29
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
 
 # 策略组
 proxy-groups:
