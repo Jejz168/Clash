@@ -163,7 +163,15 @@ dns:
   # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
   fake-ip-filter-mode: blacklist
   fake-ip-filter: #fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
-    - "rule-set:ChinaMedia_domain,Jejz_Cn_domain,ChinaNoMedia_domain,ChinaIPs_domain"
+    - "rule-set:ChinaMedia,Jejz_Cn,ChinaNoMedia,ChinaIPs"
+    - "+.services.googleapis.cn"
+    - "+.xn--ngstr-lra8j.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
   default-nameserver: #默认 DNS, 用于解析 DNS 服务器 的域名，必须为 IP, 可为加密 DNS
     - 223.5.5.5
     - 119.29.29.29
