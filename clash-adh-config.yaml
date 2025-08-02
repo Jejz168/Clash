@@ -52,8 +52,9 @@ tproxy-port: 1536 # tproxy 透明代理端口，可以代理 TCP 以及 UDP 流�
 mixed-port: 7893 # HTTP(S) 和 SOCKS 代理混合端口
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 allow-lan: true # 允许局域网连接
-unified-delay: true
-tcp-concurrent: true
+bind-address: "*"  # 绑定的 IP 地址， "*" 表示绑定所有 IP都能代理
+unified-delay: true  # 是否启用统一延迟模式
+tcp-concurrent: true  # 是否支持并发 TCP 连接
 # interface-name: eth0  （路由器下根据情况指定出站接口）
 authentication:
 #  密码设置选项默认无
@@ -85,6 +86,7 @@ external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-p
 
 
 mode: rule # 运行模式：rule 规则匹配；global 全局代理(需要在GLOBAL策略组选择代理/策略)；direct 全局直连
+log-level: warning  # 日志等级（可选：debug, info, warning, error）
 # 匹配进程 always/strict/off
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 mihomo 判断是否开启
@@ -93,13 +95,13 @@ find-process-mode: strict
 # 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
 # 可选： "chrome","firefox","safari","ios","random","none" options.
 global-client-fingerprint: chrome
-keep-alive-idle: 600
-keep-alive-interval: 30
+keep-alive-idle: 600  # Keep-Alive 空闲超时时间，单位为秒
+keep-alive-interval: 30  # Keep-Alive 的发送间隔，单位为秒
 
 # 策略组选择和fakeip缓存
 profile:
   store-selected: true # 储存 API 对策略组的选择，以供下次启动时使用
-  store-fake-ip: false # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
+  store-fake-ip: true # 储存 fakeip 映射表，域名再次发生连接时，使用原有映射地址
 
 # 域名嗅器,通过读取握手包内的域名字段,将IP还原成域名,有效解决Mapping机制的短板
 sniffer:
@@ -153,14 +155,21 @@ dns:
   use-hosts: true #查询系统Hosts
   prefer-h3: false # 是否开启 DoH 支持 HTTP/3，将并发尝试
   respect-rules: false # dns 连接遵守路由规则，需配置 proxy-server-nameserver
-  # 模式切换 redir-host / fake-ip
-  enhanced-mode: redir-host 
+  enhanced-mode: redir-host # redir-host或者fake-ip，一般fake-ip模式（设置 DNS 伪造模式，fake-ip 表示通过伪造 IP 地址来绕过 DNS 查询）
   fake-ip-range: 198.18.0.1/16 # fakeip 下的 IP 段设置 198.18.0.1/16 28.0.0.1/8
   # 模式切换 whitelist/blacklist 
   # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
   fake-ip-filter-mode: blacklist
   fake-ip-filter: #fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
-    - "rule-set:ChinaMedia_domain,Jejz_Cn_domain,ChinaNoMedia_domain,ChinaIPs_domain"
+    - "rule-set:ChinaMedia,Jejz_Cn,ChinaNoMedia,ChinaIPs"
+    - "+.services.googleapis.cn"
+    - "+.xn--ngstr-lra8j.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
   nameserver: #默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
 
 # 策略组
@@ -291,24 +300,24 @@ proxy-groups:
   
 
 rules:
-  - RULE-SET,ChinaMedia_domain,🌏 国内媒体
-  - RULE-SET,GlobalMedia_domain,🌍 国外媒体
-  - RULE-SET,TikTok_domain,🎵 TikTok
-  - RULE-SET,Telegram_domain,📲 Telegram
-  - RULE-SET,YouTube_domain,📽 YouTube
-  - RULE-SET,Netflix_domain,🎥 Netflix
-  - RULE-SET,OpenAI_domain,🤖 AI
-  - RULE-SET,Twitter_domain,📱 Twitter
-  - RULE-SET,Game_domain,🎮 游戏平台
-  - RULE-SET,Apple_domain,🍎 苹果服务
-  - RULE-SET,SystemOTA_domain,🍎 ios更新屏蔽
-  - RULE-SET,Jejz_Cn_domain,⭐️ Jejz国内
-  - RULE-SET,Jejz_Un_domain,🌟 Jejz国外
-  - RULE-SET,Microsoft_domain,Ⓜ️ 微软服务
-  - RULE-SET,PrivateTracker_domain,🇧🇹 PT下载
-  - RULE-SET,ChinaNoMedia_domain,🇨🇳 国内网站
-  - RULE-SET,ChinaIPs_domain,🇨🇳 国内网站
-  - RULE-SET,Proxy_domain,🇺🇳 国外网站
+  - RULE-SET,ChinaMedia,🌏 国内媒体
+  - RULE-SET,GlobalMedia,🌍 国外媒体
+  - RULE-SET,TikTok,🎵 TikTok
+  - RULE-SET,Telegram,📲 Telegram
+  - RULE-SET,YouTube,📽 YouTube
+  - RULE-SET,Netflix,🎥 Netflix
+  - RULE-SET,OpenAI,🤖 AI
+  - RULE-SET,Twitter,📱 Twitter
+  - RULE-SET,Game,🎮 游戏平台
+  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,SystemOTA,🍎 ios更新屏蔽
+  - RULE-SET,Jejz_Cn,⭐️ Jejz国内
+  - RULE-SET,Jejz_Un,🌟 Jejz国外
+  - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,PrivateTracker,🇧🇹 PT下载
+  - RULE-SET,ChinaNoMedia,🇨🇳 国内网站
+  - RULE-SET,ChinaIPs,🇨🇳 国内网站
+  - RULE-SET,Proxy,🇺🇳 国外网站
   - MATCH,🐟 漏网之鱼
 
 rule-anchor:
@@ -322,21 +331,21 @@ rule-anchor:
   class_yaml: &class_yaml {type: http, interval: 86400, behavior: classical, format: yaml}
 
 rule-providers: 
-  ChinaMedia_domain: { <<: *class, path: ./rules/ChinaMedia.list, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list" }
-  GlobalMedia_domain: { <<: *class, path: ./rules/GlobalMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
-  Telegram_domain: { <<: *class, path: ./rules/Telegram.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" }
-  YouTube_domain: { <<: *class, path: ./rules/YouTube.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" }
-  TikTok_domain: { <<: *class, path: ./rules/TikTok.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" }
-  Netflix_domain: { <<: *class, path: ./rules/Netflix.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" }
-  OpenAI_domain: { <<: *class, path: ./rules/OpenAI.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list" }
-  Twitter_domain: { <<: *class, path: ./rules/Twitter.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.list" }
-  Game_domain: { <<: *class, path: ./rules/Game.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list" }
-  Apple_domain: { <<: *class, path: ./rules/Apple.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" }
-  SystemOTA_domain: { <<: *class, path: ./rules/SystemOTA.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.list" }
-  Jejz_Cn_domain: { <<: *class, path: ./rules/Jejz_Cn.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Cn.list" }
-  Jejz_Un_domain: { <<: *class, path: ./rules/Jejz_Un.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Un.list" }
-  Microsoft_domain: { <<: *class, path: ./rules/Microsoft.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" }
-  PrivateTracker_domain: { <<: *class, path: ./rules/PrivateTracker.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list" }
-  ChinaNoMedia_domain: { <<: *class, path: ./rules/ChinaNoMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list" }
-  Proxy_domain: { <<: *class, path: ./rules/Proxy.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list" }
-  ChinaIPs_domain: { <<: *class, path: ./rules/ChinaIPs.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list" }
+  ChinaMedia: { <<: *class, path: ./rules/ChinaMedia.list, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list" }
+  GlobalMedia: { <<: *class, path: ./rules/GlobalMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
+  Telegram: { <<: *class, path: ./rules/Telegram.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" }
+  YouTube: { <<: *class, path: ./rules/YouTube.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" }
+  TikTok: { <<: *class, path: ./rules/TikTok.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" }
+  Netflix: { <<: *class, path: ./rules/Netflix.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" }
+  OpenAI: { <<: *class, path: ./rules/OpenAI.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list" }
+  Twitter: { <<: *class, path: ./rules/Twitter.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.list" }
+  Game: { <<: *class, path: ./rules/Game.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list" }
+  Apple: { <<: *class, path: ./rules/Apple.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" }
+  SystemOTA: { <<: *class, path: ./rules/SystemOTA.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.list" }
+  Jejz_Cn: { <<: *class, path: ./rules/Jejz_Cn.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Cn.list" }
+  Jejz_Un: { <<: *class, path: ./rules/Jejz_Un.list, url: "https://raw.githubusercontent.com/Jejz168/Clash/main/List/Jejz_Un.list" }
+  Microsoft: { <<: *class, path: ./rules/Microsoft.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" }
+  PrivateTracker: { <<: *class, path: ./rules/PrivateTracker.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list" }
+  ChinaNoMedia: { <<: *class, path: ./rules/ChinaNoMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list" }
+  Proxy: { <<: *class, path: ./rules/Proxy.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list" }
+  ChinaIPs: { <<: *class, path: ./rules/ChinaIPs.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list" }
