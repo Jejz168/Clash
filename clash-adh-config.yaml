@@ -136,7 +136,7 @@ sniffer:
 # 代理模式
 tun:
   enable: true # 是否启用,可选 true/false
-  stack: gvisor # tun 模式堆栈，如无使用问题，建议使用 mixed栈，默认 gvisor，可用值： system/gvisor/mixed
+  stack: mixed # tun 模式堆栈，如无使用问题，建议使用 mixed栈，默认 gvisor，可用值： system/gvisor/mixed
   mtu: 9000 # 最大传输单元，会影响极限状态下的速率，一般用户默认即可。
   dns-hijack: # dns 劫持，将匹配到的连接导入内部 dns 模块，不书写协议则为 udp://
     - "any:53"
