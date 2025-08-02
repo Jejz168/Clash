@@ -53,7 +53,7 @@ mixed-port: 7893 # HTTP(S) 和 SOCKS 代理混合端口
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 allow-lan: true # 允许局域网连接
 bind-address: "*"  # 绑定的 IP 地址， "*" 表示绑定所有 IP都能代理
-unified-delay: true  # 是否启用统一延迟模式
+unified-delay: false  # 是否启用统一延迟模式
 tcp-concurrent: true  # 是否支持并发 TCP 连接
 # interface-name: eth0  （路由器下根据情况指定出站接口）
 authentication:
