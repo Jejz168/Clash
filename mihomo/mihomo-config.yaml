@@ -45,10 +45,10 @@ proxy-providers:
 global-ua: clash.meta
 
 # 全局配置
-# port: 7890 # HTTP(S) 代理端口
-# socks-port: 7891 # SOCKS5 代理端口
-# redir-port: 7892 # redirect 透明代理端口，仅能代理 TCP 流量，仅适用于 Linux 以及 macOS 使用
-# tproxy-port: 1536 # tproxy 透明代理端口，可以代理 TCP 以及 UDP 流量，仅限 linux 适用 (Android 设备属于 Linux 设备）
+port: 7890 # HTTP(S) 代理端口
+socks-port: 7891 # SOCKS5 代理端口
+redir-port: 7892 # redirect 透明代理端口，仅能代理 TCP 流量，仅适用于 Linux 以及 macOS 使用
+tproxy-port: 1536 # tproxy 透明代理端口，可以代理 TCP 以及 UDP 流量，仅限 linux 适用 (Android 设备属于 Linux 设备）
 mixed-port: 7893 # HTTP(S) 和 SOCKS 代理混合端口
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 allow-lan: true # 允许局域网连接
