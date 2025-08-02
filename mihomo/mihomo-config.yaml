@@ -186,8 +186,8 @@ dns:
       - https://dns.pub/dns-query
       - https://dns.alidns.com/dns-query
    "rule-set:Proxy": #指定这些规则集DNS服务器
-      - tls//1.1.1.1#🚀 全局设置
-      - tls//8.8.4.4#🚀 全局设置
+      - tls://1.1.1.1#🚀 全局设置
+      - tls://8.8.4.4#🚀 全局设置
   nameserver: #默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
     - 223.5.5.5
     - 119.29.29.29
