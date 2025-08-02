@@ -91,7 +91,7 @@ log-level: warning  # 日志等级（可选：debug, info, warning, error）
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 mihomo 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
-find-process-mode: strict
+find-process-mode: 'off'
 # 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
 # 可选： "chrome","firefox","safari","ios","random","none" options.
 global-client-fingerprint: chrome
