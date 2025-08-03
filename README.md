@@ -9,5 +9,5 @@
 
 # 访问量
 
-![](https://komarev.com/ghpvc/?username=Jejz168&color=brightgreen&style=for-the-badge)
+![](https://komarev.com/ghpvc/?username=Jejz168&color=00CED1&style=for-the-badge)
 
