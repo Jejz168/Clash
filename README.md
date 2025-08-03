@@ -9,5 +9,5 @@
 
 # 访问量
 
-![](http://profile-counter.glitch.me/Jejz168-Clash/count.svg)
+![](https://komarev.com/ghpvc/?username=Jejz168&color=brightgreen&style=for-the-badge)
 
