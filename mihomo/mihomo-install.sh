@@ -9,7 +9,7 @@
 set -e -o pipefail
 
 # 日志输出函数
-log() { echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $*" }
+log() { echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
 info()  { log "\033[1;34m[INFO]\033[0m $*"; }
 warn()  { log "\033[1;33m[WARN]\033[0m $*"; }
 error() { log "\033[1;31m[ERROR]\033[0m $*"; exit 1; }
