@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # ===============================
 # Nikki alpha 内核更新脚本
 # File name: update_nikki.sh
