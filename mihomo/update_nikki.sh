@@ -1,6 +1,6 @@
 #!/bin/bash
 # ===============================
-# Nikki alpha 内核更新脚本
+# Nikki 内核更新脚本
 # File name: update_nikki.sh
 # Lisence: MIT
 # By: Jejz
@@ -38,17 +38,41 @@ info "检测到平台架构：$ARCH -> $ARCH_SUFFIX"
 # -------------------------
 # 获取 Mihomo 最新版本号
 # -------------------------
-VERSION_URL="https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt"
-info "获取 Mihomo 最新版本..."
-VERSION=$(curl -sSL "$VERSION_URL" | grep -o 'alpha-[a-z0-9]\+')
+echo "请选择 Mihomo 更新通道："
+echo "1) Latest 稳定版 (推荐，长期使用)"
+echo "2) Prerelease-Alpha 测试版 (新功能，可能不稳定)"
+read -rp "请输入序号 [1-2]: " CHOICE
 
-[ -z "$VERSION" ] && error "无法获取版本号"
-info "最新版本为 $VERSION"
+case "$CHOICE" in
+  1)
+    CHANNEL="Latest"
+    VERSION=$(curl -sSL "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" \
+  | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
+    ;;
+  2)
+    CHANNEL="Prerelease-Alpha"
+    VERSION_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/version.txt"
+    VERSION=$(curl -sSL "$VERSION_URL" | grep -o 'alpha-[a-z0-9]\+')
+    ;;
+  *)
+    echo "输入错误，退出。"
+    exit 1
+    ;;
+esac
+info "获取 Mihomo 最新版本..."
+
+[ -z "$VERSION" ] && { error "❌ 无法获取版本号"; exit 1; }
+info "✅ 选择通道: $CHANNEL"
+info "✅ 最新版本为: $VERSION"
 
 # -------------------------
 # 下载核心文件
 # -------------------------
-CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+if [ "$CHANNEL" = "Latest" ]; then
+    CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+else
+    CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+fi
 CORE_GZ="mihomo.gz"
 CORE_BIN="mihomo"
 
