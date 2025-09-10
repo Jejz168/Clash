@@ -62,8 +62,8 @@ esac
 info "获取 Mihomo 最新版本..."
 
 [ -z "$VERSION" ] && { error "❌ 无法获取版本号"; exit 1; }
-info "✅ 选择通道: $CHANNEL"
-info "✅ 最新版本为: $VERSION"
+info "✅ Mihomo选择通道为: $CHANNEL"
+info "✅ Mihomo最新版本为: $VERSION"
 
 # -------------------------
 # 下载核心文件
