@@ -1,0 +1,7 @@
+1.openwrt - 网络 - DHCP/DNS - 转发写入 127.0.0.1#1053
+
+2.AdGuard Home - 5335 重定向 - 无
+
+3.nikki - 配置文件(上传配置文件) - 插件配置【选择配置文件(mihomo-adh-config.yaml) / 仅核心(打钩)】
+
+4.更新Alpha核心方法 - update_nikki.sh放openwrt的root目录 - ssh命令输入【sh update_nikki.sh】
