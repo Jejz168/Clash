@@ -69,10 +69,19 @@ info "✅ 最新版本为: $VERSION"
 # 下载核心文件
 # -------------------------
 if [ "$CHANNEL" = "Latest" ]; then
-    CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+    if [ "$ARCH_SUFFIX" = "amd64" ]; then
+        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+    else
+        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
+    fi
 else
-    CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+    if [ "$ARCH_SUFFIX" = "amd64" ]; then
+        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+    else
+        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
+    fi
 fi
+
 CORE_GZ="mihomo.gz"
 CORE_BIN="mihomo"
 
