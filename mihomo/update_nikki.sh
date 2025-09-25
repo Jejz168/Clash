@@ -22,6 +22,18 @@ else
 fi
 
 # -------------------------
+# 配置代理前缀（可选）
+# -------------------------
+# 默认不使用代理，如需代理请GIT_PROXY="http://xxxx/"
+GIT_PROXY=""
+
+if [ -n "$GIT_PROXY" ]; then
+  info "使用代理前缀: $GIT_PROXY"
+else
+  info "未启用代理前缀"
+fi
+
+# -------------------------
 # 自动识别平台架构
 # -------------------------
 ARCH=$(uname -m)
@@ -51,7 +63,7 @@ case "$CHOICE" in
     ;;
   2)
     CHANNEL="Prerelease-Alpha"
-    VERSION_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/version.txt"
+    VERSION_URL="${GIT_PROXY}https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/version.txt"
     VERSION=$(curl -sSL "$VERSION_URL" | grep -o 'alpha-[a-z0-9]\+')
     ;;
   *)
@@ -70,15 +82,15 @@ info "✅ Mihomo最新版本为: $VERSION"
 # -------------------------
 if [ "$CHANNEL" = "Latest" ]; then
     if [ "$ARCH_SUFFIX" = "amd64" ]; then
-        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+        CORE_URL="${GIT_PROXY}https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
     else
-        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
+        CORE_URL="${GIT_PROXY}https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
     fi
 else
     if [ "$ARCH_SUFFIX" = "amd64" ]; then
-        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
+        CORE_URL="${GIT_PROXY}https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-compatible-${VERSION}.gz"
     else
-        CORE_URL="https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
+        CORE_URL="${GIT_PROXY}https://github.com/MetaCubeX/mihomo/releases/download/${CHANNEL}/mihomo-linux-${ARCH_SUFFIX}-${VERSION}.gz"
     fi
 fi
 
