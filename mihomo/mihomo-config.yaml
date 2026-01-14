@@ -350,6 +350,7 @@ rules:
   - RULE-SET,ChinaNoMedia,🇨🇳 国内网站
   - RULE-SET,ChinaIPs,🇨🇳 国内网站
   - RULE-SET,Proxy,🇺🇳 国外网站
+  - RULE-SET,Lan,DIRECT
   - MATCH,🐟 漏网之鱼
 
 rule-anchor:
@@ -381,5 +382,6 @@ rule-providers:
   ChinaNoMedia: { <<: *class, path: ./rules/ChinaNoMedia.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaNoMedia/ChinaNoMedia.list" }
   Proxy: { <<: *class, path: ./rules/Proxy.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.list" }
   ChinaIPs: { <<: *class, path: ./rules/ChinaIPs.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs.list" }
+  Lan: { <<: *class, path: ./rules/Lan.list, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.list" }
   
   cn_ip: { <<: *ip, path: ./rules/cn.mrs, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
