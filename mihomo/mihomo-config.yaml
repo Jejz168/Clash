@@ -332,6 +332,8 @@ proxy-groups:
   - {name: 🐟 漏网之鱼, type: select, proxies: [DIRECT, REJECT, 🚀 全局设置, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇰🇷 韩国节点, 🌍 其它地区], icon: "https://raw.githubusercontent.com/Jejz168/Clash/main/icon/final.png"}
 
 rules:
+  - RULE-SET,Jejz_Cn,⭐️ Jejz国内
+  - RULE-SET,Jejz_Un,🌟 Jejz国外
   - RULE-SET,TikTok,🎵 TikTok
   - RULE-SET,Telegram,📲 Telegram
   - RULE-SET,YouTube,📽 YouTube
@@ -341,8 +343,6 @@ rules:
   - RULE-SET,Game,🎮 游戏平台
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,SystemOTA,🍎 ios更新屏蔽
-  - RULE-SET,Jejz_Cn,⭐️ Jejz国内
-  - RULE-SET,Jejz_Un,🌟 Jejz国外
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
   - RULE-SET,PrivateTracker,🇧🇹 PT下载
   - RULE-SET,ChinaMedia,🌏 国内媒体
