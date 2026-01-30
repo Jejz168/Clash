@@ -12,10 +12,10 @@
 # DOMAIN-REGEX,^abc.*com,PROXY #正则匹配域名
 # RULE-SET,providername,PROXY #匹配规则集
 
+DOMAIN,gsa.apple.com
 DOMAIN-SUFFIX,sm.ms
 DOMAIN-SUFFIX,eu.org
 DOMAIN-SUFFIX,fs1.app
-DOMAIN,gsa.apple.com
 DOMAIN-KEYWORD,jsdelivr
 DOMAIN-KEYWORD,missav
 DOMAIN-KEYWORD,staticfile
